@@ -45,3 +45,20 @@ export const showAsCurrency = function (amount: number | null): string {
   }
   return amount.toLocaleString("en-US", { style: "currency", currency: "USD" });
 };
+
+// crypto.randomUUID() is only available in secure contexts (HTTPS or
+// localhost), which would break testing Layer's phone flow from a phone
+// over plain HTTP on the LAN. crypto.getRandomValues() has no such
+// restriction, so build the v4 UUID from it directly.
+export const generateClientUserId = function (): string {
+  const bytes = crypto.getRandomValues(new Uint8Array(16));
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join(
+    ""
+  );
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(
+    12,
+    16
+  )}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+};
