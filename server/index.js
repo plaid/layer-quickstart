@@ -1,7 +1,6 @@
 // import dotenv and express
 import dotenv from "dotenv";
 import express from "express";
-import bodyParser from "body-parser";
 
 // Load environment variables
 dotenv.config();
@@ -21,8 +20,8 @@ if (missing.length > 0) {
 }
 
 const app = express();
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 const routes = ["tokens"];
 
