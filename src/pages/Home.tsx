@@ -12,7 +12,6 @@ import DefaultSignUpForm from "../components/DefaultSignUpForm";
 import SuccessDisplay from "../components/SuccessDisplay";
 import DebugCard from "../components/DebugCard";
 import { AccountSessionInfo } from "../lib/types";
-import { v4 as uuidv4 } from "uuid";
 
 enum FlowState {
   WELCOME = "WELCOME",
@@ -23,7 +22,7 @@ enum FlowState {
 }
 
 const Home: React.FC = () => {
-  const [clientUserId] = useState<string>(() => uuidv4());
+  const [clientUserId] = useState<string>(() => crypto.randomUUID());
   const [linkToken, setLinkToken] = useState<string | null>(null);
   const [flowState, setFlowState] = useState<FlowState>(FlowState.WELCOME);
   const [phoneNumber, setPhoneNumber] = useState("");
