@@ -5,7 +5,7 @@ import {
   PlaidLinkResult,
 } from "react-plaid-link";
 import Header from "../components/Header";
-import { callMyServer } from "../lib/utils";
+import { callMyServer, generateClientUserId } from "../lib/utils";
 import PhoneInputStep from "../components/PhoneInputStep";
 import BirthdayInputStep from "../components/BirthdayInputStep";
 import DefaultSignUpForm from "../components/DefaultSignUpForm";
@@ -22,7 +22,7 @@ enum FlowState {
 }
 
 const Home: React.FC = () => {
-  const [clientUserId] = useState<string>(() => crypto.randomUUID());
+  const [clientUserId] = useState<string>(() => generateClientUserId());
   const [linkToken, setLinkToken] = useState<string | null>(null);
   const [flowState, setFlowState] = useState<FlowState>(FlowState.WELCOME);
   const [phoneNumber, setPhoneNumber] = useState("");
